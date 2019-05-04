@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: collect-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collect
+  template:
+    metadata:
+      labels:
+        app: collect
+    spec:
+      containers:
+      - name: collect
+        image: python
+        command: python3
+        args: /pyrun/runInPodCollect.py
+        ports:
+        - containerPort: 9011
+          protocol: UDP
+        volumeMounts:
+        - mountPath: /pyrun
+          name: pyrun
+      volumes:
+      - name: pyrun
+        hostPath:
+          path: /home/kaki/share
+          type: Directory
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: collect-service
+spec:
+  selector:
+    app: collect
+  ports:
+  - name: coludp
+    protocol: UDP
+    port: 9011
+    targetPort: 9011
+  type: LoadBalancer

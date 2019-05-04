@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webbackend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-backend
+  template:
+    metadata:
+      labels:
+        app: web-backend
+    spec:
+      containers:
+      - name: web-backend
+        image: python
+        command: 
+        - python3
+        args:
+        - "/pyrun/backend.py"
+        ports:
+        - containerPort: 9011
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /pyrun
+          name: pyrun
+      volumes:
+      - name: pyrun
+        hostPath:
+          path: /home/kaki/share
+          type: Directory
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webbackend-service
+spec:
+  selector:
+    app: web-backend
+  ports:
+  - name: https
+    protocol: TCP
+    port: 9011
+    targetPort: 9011
+  type: LoadBalancer
+# ---
+#  env:
+#         - name: WORDPRESS_DB_HOST
+#           value: mysql-service:3306

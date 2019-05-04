@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pole-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pole-fall
+  template:
+    metadata:
+      labels:
+        app: pole-fall
+      annotations: 
+        k8s.v1.cni.cncf.io/networks: macvlan-conf
+    spec:
+      containers:
+      - name: python
+        image: python
+        command: python3
+        args: /pyrun/runInPodPole.py
+        ports:
+        - containerPort: 9011
+          protocol: UDP
+        volumeMounts:
+        - mountPath: /pyrun
+          name: pyrun
+      volumes:
+      - name: pyrun
+        hostPath:
+          path: /home/kaki/share
+          type: Directory
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pole-service
+spec:
+  selector:
+    app: pole-fall
+  ports:
+  - name: poleudp
+    protocol: UDP
+    port: 9011
+    targetPort: 9011
+  type: LoadBalancer

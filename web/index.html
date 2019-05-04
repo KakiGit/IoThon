@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add bootstrap CSS library -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="interaction.js"></script>
+
+<style>
+@font-face {
+  font-family: openSansRegular;
+  src: url("OpenSans-Regular.ttf");
+}
+
+@font-face {
+  fontfamily: openSansLight;
+  src: url("Opensans-Light.ttf");
+}
+
+div {
+  font-family: openSansRegular;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("map.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.lightpole {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  margin-top: -50px;
+  margin-left: -50px;
+  /* background: orange; */
+}
+
+.light {
+  height: 70px;
+  width: 70px;
+  border: none;
+  color: white;
+  background-color:Transparent;
+  background-size:cover; /* <-- scale the image to cover the button */
+  background-position:center center; /* <-- center the image in the button */
+  position: absolute;
+  margin-top: -27px;
+  font-size: 20px;
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+button.back:hover {background-color: #b5b5b6}
+
+button.back:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+button.call:hover {background-color: #f8b62d}
+
+button.call:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.white_content {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 25%;
+    height: 100%;
+    padding: 20px;
+    border: 10px solid green;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+    border-radius: 0px;
+    text-align: center;
+}
+
+#popup {
+  display: none;
+  position: absolute;
+  top: 15%;
+  left: 30%;
+  z-index:1002;
+}
+
+.black_overlay{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:0.5;
+    filter: alpha(opacity=88);
+}
+
+
+  </style>
+  </head>
+  <body>
+    <div class="bg">
+
+      <!-- <input class="lightpole" type="image" src="red.png" id="lightpole1" alt="lightpole1" style="top: 45%;left: 49%;" href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"> -->
+      <button class='light'
+              style='background-image:url("green.png"); top: 45%;left: 49%;'
+              href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='block';
+                         document.getElementById('fade').style.display='block'" id=pole1>-</button>
+      <!-- <input class="lightpole" type="image" src="yellow.png" id="lightpole2" alt="lightpole2" style="top: 42%;left: 35%;" href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+      <input class="lightpole" type="image" src="yellow.png" id="lightpole3" alt="lightpole3" style="top: 51%;left: 60%;" href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"> -->
+      <button class='light'
+              style='background-image:url("green.png"); top: 42%;left: 35%;'
+              href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='block';
+                         document.getElementById('fade').style.display='block'" id=pole2>-</button>
+      <button class='light'
+              style='background-image:url("yellow.png"); top: 51%;left: 60%;'
+              href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='block';
+                         document.getElementById('fade').style.display='block'">8</button>
+      <!-- <input class="lightpole" type="image" src="green.png" id="lightpole4" alt="lightpole4" style="top: 89%;left: 5%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole5" alt="lightpole5" style="top: 75%;left: 92%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole6" alt="lightpole6" style="top: 68%;left: 23%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole7" alt="lightpole7" style="top: 33%;left: 67%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole8" alt="lightpole8" style="top: 39%;left: 91%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole9" alt="lightpole9" style="top: 20%;left: 52%;">
+      <input class="lightpole" type="image" src="green.png" id="lightpole10" alt="lightpole10" style="top: 36%;left: 19%;"> -->
+      <button class='light'
+              style='background-image:url("green.png"); top: 89%;left: 5%;'
+              href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='block';
+                         document.getElementById('fade').style.display='block'">0</button>
+       <button class='light'
+               style='background-image:url("green.png"); top: 75%;left: 92%;'
+               href = "javascript:void(0)"
+               onclick = "document.getElementById('popup').style.display='block';
+                          document.getElementById('fade').style.display='block'">0</button>
+      <button class='light'
+                style='background-image:url("green.png"); top: 68%;left: 23%;'
+                href = "javascript:void(0)"
+                onclick = "document.getElementById('popup').style.display='block';
+                           document.getElementById('fade').style.display='block'">0</button>
+       <button class='light'
+               style='background-image:url("green.png"); top: 33%;left: 67%;'
+               href = "javascript:void(0)"
+               onclick = "document.getElementById('popup').style.display='block';
+                          document.getElementById('fade').style.display='block'">0</button>
+      <button class='light'
+              style='background-image:url("green.png"); top: 39%;left: 91%;'
+              href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='block';
+                         document.getElementById('fade').style.display='block'">0</button>
+       <button class='light'
+               style='background-image:url("green.png"); top: 20%;left: 52%;'
+               href = "javascript:void(0)"
+               onclick = "document.getElementById('popup').style.display='block';
+                          document.getElementById('fade').style.display='block'">0</button>
+        <button class='light'
+                style='background-image:url("green.png"); top: 36%;left: 19%;'
+                href = "javascript:void(0)"
+                onclick = "document.getElementById('popup').style.display='block';
+                           document.getElementById('fade').style.display='block'">0</button>
+
+      <div id="fade" class="black_overlay"></div>
+
+      <div id="popup" class="card" style="width: 38rem; display: none;">
+        <img src="maarintie.jpg" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Light Pole 0001 (Maarintie, 02150 Espoo, Finland)</h5>
+          <p class="card-text" style="font-size: 14px;color: #989898;font-family: openSansRegular;"><b style="font-size: 18px;">53</b> people have fell down around this region.</p>
+          <a href = "javascript:void(0)"
+              onclick = "document.getElementById('popup').style.display='none';
+                           document.getElementById('fade').style.display='none'"
+              class="btn btn-primary">Back</a>
+          <a href="#" class="btn btn-danger">Call 112</a>
+          <a href="#" class="btn btn-success">Take a photo</a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+<script language="javascript" src="main.js"></script>
+
+  </body>
+</html>
